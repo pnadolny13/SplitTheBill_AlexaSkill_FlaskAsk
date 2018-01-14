@@ -1,0 +1,5 @@
+welcomeSplit: Hey guys! Leaving the bar already? Its only {{hour}} {{minute}}....Ready to split the tab up with Pat's super sick bill splitting app?
+
+groupNames: Ok cool, name all the people in your group. Group Max is 3 for now!
+
+groupResponse: Great, I have {{ peopleList|join(", ") }}. How many beers did each of you have in that order?
