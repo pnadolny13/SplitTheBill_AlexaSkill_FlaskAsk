@@ -1,5 +1,9 @@
 welcomeSplit: Hey guys! Leaving the bar already? Its only {{hour}} {{minute}}....Ready to split the tab up with Pat's super sick bill splitting app?
 
-groupNames: Ok cool, name all the people in your group. Group Max is 3 for now!
+groupNames: Ok cool, name all the people in your group.
 
-groupResponse: Great, I have {{ peopleList|join(", ") }}. How many beers did each of you have in that order?
+groupResponse: Great, I have {{ peopleList|join(", ") }}. How much are beer, tax, and tip?
+
+inputsResponse: Cool. Now tell me what each person had, one person at a time.
+
+totals: Ok the total bill should be {{total}}, and everyone's totals are as follows. {% for person in peopleDict %} {{person}} owes {{peopleDict[person]}} dollars {% endfor %}

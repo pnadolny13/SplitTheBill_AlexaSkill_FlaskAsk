@@ -1,0 +1,101 @@
+Intent Schema
+
+
+{
+  "intents": [
+    {
+      "intent": "YesIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "firstPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+        {
+          "name": "secondPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+        {
+          "name": "thirdPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+		        {
+          "name": "forthPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+        {
+          "name": "fifthPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+		        {
+          "name": "sixthPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+        {
+          "name": "seventhPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+		        {
+          "name": "eighthPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+        {
+          "name": "ninthPerson",
+          "type": "AMAZON.GB_FIRST_NAME"
+        }
+      ],
+      "intent": "GroupNamesIntent"
+    },
+	 {
+      "slots": [
+        {
+          "name": "beerPrice",
+          "type": "AMAZON.NUMBER"
+        },
+		{
+          "name": "tax",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "tip",
+          "type": "AMAZON.NUMBER"
+        }
+		
+      ],
+      "intent": "CostInputIntent"
+    },
+	    {
+      "slots": [
+        {
+          "name": "person",
+          "type": "AMAZON.GB_FIRST_NAME"
+        },
+        {
+          "name": "beerCount",
+          "type": "AMAZON.NUMBER"
+        }
+		
+      ],
+      "intent": "PersonEntryIntent"
+    },
+	    {
+      "intent": "DoneIntent"
+    }
+  ]
+}
+
+
+
+Sample Utterances
+
+YesIntent yes
+YesIntent sure
+GroupNamesIntent {firstPerson} {secondPerson} {thirdPerson} {forthPerson} {fifthPerson} {sixthPerson} {seventhPerson} {eighthPerson} {ninthPerson}
+GroupNamesIntent {firstPerson} {secondPerson} {thirdPerson} {forthPerson} {fifthPerson} {sixthPerson} {seventhPerson} {eighthPerson} and {ninthPerson}
+PersonEntryIntent {person} had {beerCount} beers
+PersonEntryIntent {person} had {beerCount}
+DoneIntent done
+CostInputIntent beer is {beerPrice} dollars tax is {tax} percent and tip is {tip} percent
+CostInputIntent beer is {beerPrice} tax is {tax} and tip is {tip}
+CostInputIntent beer is {beerPrice} dollars tax is {tax} percent tip is {tip} percent
