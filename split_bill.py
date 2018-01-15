@@ -70,40 +70,59 @@ def get_beer_count(firstPerson, secondPerson, thirdPerson, forthPerson, fifthPer
     if ninthPerson != None and ninthPerson not in peopleDict:
         peopleList.append(ninthPerson)
         peopleDict[ninthPerson] = 0         
-        
-    session.attributes['peopleList'] = peopleList
+    
     session.attributes['peopleDict'] = peopleDict
     groupResponse = render_template('groupResponse', peopleList=peopleList)
 
     return question(groupResponse)
 
-@ask.intent("CostInputIntent", convert={'beerPrice': int, 'tax': int, 'tip': int})
+@ask.intent("ItemInputIntent", convert={'drink': int, 'costDollars': int, 'costCents': int})
+def get_item_input(drink, costDollars, costCents):
+    itemDict = {}
+    if costDollars != None and costCents != None:
+        price = costDollars + "." + costCents
+        price = float(price)
+    else:
+        return question('I didnt understand your price, please try again. For example say bud light cost 5 dollars and 50 cents.')
+    if drink != None:
+        itemDict[drink] = price
+    else:
+        return question('I didnt get your drink name, please try again. For example say bud light cost 5 dollars and 50 cents.')
+    session.attributes['itemDict'] = itemDict
+    return question(render_template('inputsResponse'))
+
+@ask.intent("CostInputIntent", convert={'tax': int, 'tip': int})
 def get_cost_inputs(beerPrice, tax, tip):
-    if beerPrice == None or tax == None or tip == None:
-        return question('I missed that, say beer price tax and tip.')
+    if tax == None or tip == None:
+        return question('I missed that, say tax percent and tip percent.')
     tip = tip/100
     tax = tax/100
-    session.attributes['beerPrice'] = beerPrice
     session.attributes['tax'] = tax
     session.attributes['tip'] = tip
         
     return question(render_template('inputsResponse'))
 
 
-@ask.intent("PersonEntryIntent", convert={'beerCount': int})
-def get_beer_per_person(person, beerCount):
-    beerPrice = session.attributes['beerPrice']
+@ask.intent("PersonEntryIntent", convert={'drinkCount': int})
+def get_beer_per_person(person, drinkCount, drinkName):
+    itemDict = session.attributes['itemDict']
     tip = session.attributes['tip']
     tax = session.attributes['tax']
-    session.attributes['peopleList']
     peopleDict = session.attributes['peopleDict']   
     # if person exists in dictionary
     if person in peopleDict:
         # if beerCount is not zero
-        if beerCount != 0:
-            amount = round(((beerCount * beerPrice * (1 + tax)) * (1 + tip)), 2)
-            # add beer count to total
-            peopleDict.update(({person:amount}))
+        if drinkCount != 0:
+            if drinkName in itemDict:
+               # get price of drink, get current person's total,
+               # add them together and put back in dict
+               price = itemDict[drinkName]
+               amount = round(((drinkCount * price * (1 + tax)) * (1 + tip)), 2)
+               currentTotal = peopleDict[person]
+               amount += currentTotal
+               peopleDict.update(({person:amount}))
+            else:
+                return question('I dont know the price of that drink. Please add it.')
         else:
             return question('Loser. Anything else? If not, say done.')
     # else respond with doesnt exist template

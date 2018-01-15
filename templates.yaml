@@ -2,8 +2,8 @@ welcomeSplit: Hey guys! Leaving the bar already? Its only {{hour}} {{minute}}...
 
 groupNames: Ok cool, name all the people in your group.
 
-groupResponse: Great, I have {{ peopleList|join(", ") }}. How much are beer, tax, and tip?
+groupResponse: Great, I have {{ peopleList|join(", ") }}. How much is tax and tip?
 
-inputsResponse: Cool. Now tell me what each person had, one person at a time.
+inputsResponse: Cool. Now tell me what each person had. For example John had 1 bud light.
 
 totals: Ok the total bill should be {{total}}, and everyone's totals are as follows. {% for person in peopleDict %} {{person}} owes {{peopleDict[person]}} dollars {% endfor %}
